@@ -26,6 +26,7 @@ def dj_oracle(case, n):
 		output = np.random.randint(2)
 		if output == 1:
 			oracle_qc.x(n)
+	print(oracle_qc)
 	oracle_gate = oracle_qc.to_gate()
 	oracle_gate.name = "Oracle" # To show when we display the circuit
 	return oracle_gate
@@ -50,41 +51,8 @@ class DeutschJozsa(object):
 	def __init__(self):
 		pass
 
-	def getOracle(self, f, n):
-		"""Constructs the quantum oracle U_f from classical oracle f.
 
-		Parameters
-		----------
-		f : f : {0,1}^n -> {0,1}
-			Takes an n-bit array and outputs 1 bit.
-			Either constant or balanced.
-
-		Returns
-		-------
-		2^(n+1) by 2^(n+1) numpy matrix containing the oracle U_f
-		"""
-
-		# create empty oracle U_f
-		oracle = np.zeros(shape=(2**(n+1), 2**(n+1)))
-
-		# populate oracle according to f
-		# basically,
-			# when f(x)=0 apply Identity to ancilla qubit
-			# when f(x)=1 apply NOT to ancilla qubit
-		for i in range(2**n):
-			if f(i) == 0:
-				oracle[2*i][2*i] = 1
-				oracle[2*i+1][2*i+1] = 1
-			else:
-				oracle[2*i+1][2*i] = 1
-				oracle[2*i][2*i+1] = 1
-		print(oracle)
-		op = Operator(oracle)
-		print(op.input_dims())
-		print(op.output_dims)
-		return op
-
-	def get_circuit(self, f, n_qubits):
+	def get_circuit(self, U_f, n_qubits):
 		"""Creates the DJ circuit for this function f.
 
 		Parameters
@@ -98,7 +66,7 @@ class DeutschJozsa(object):
 		1 if f is constant
 		0 if f is balanced
 		"""
-		oracle = self.getOracle(f, n_qubits)
+
 		# make circuit
 		circ = QuantumCircuit(n_qubits+1, n_qubits+1)
 		# apply the first hadamard to all qubits
@@ -110,7 +78,7 @@ class DeutschJozsa(object):
 		circ.h(n_qubits)
 
 		# apply oracle to all qubits
-		circ.append(oracle, range(n_qubits+1))
+		circ.append(U_f, range(n_qubits+1))
 
 		#Put cx and etc gates on
 
@@ -120,10 +88,11 @@ class DeutschJozsa(object):
 		circ.measure(range(0,n_qubits),range(0,n_qubits))
 		return circ
 
-	def run(self, f, n):
+	def run(self, f, U_f, n):
 		np.set_printoptions(threshold=sys.maxsize)
 		backend = Aer.get_backend('qasm_simulator')
-		circ = self.get_circuit(f,n)
+		circ = self.get_circuit(U_f,n)
+		print('got circuit', circ)
 		result = self.execute(circ, backend)
 		print(result)
 

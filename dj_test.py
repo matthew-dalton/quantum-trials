@@ -16,7 +16,7 @@ def main():
 
 	# constants
 	QUBIT_RANGE = 3
-	ITERATIONS = 2
+	ITERATIONS = 3
 
 
 	worked = np.zeros(shape=(QUBIT_RANGE, ITERATIONS))
@@ -42,7 +42,7 @@ def main():
 			print(constant)
 			oracle = dj.dj_oracle(constant, n+2)
 			start = time.perf_counter()
-			result = djObject.run(f, n+2)
+			result = djObject.run(f,oracle, n+2)
 			end = time.perf_counter()
 
 			# print('worked' if result == constant else 'failed')
