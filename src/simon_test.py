@@ -13,8 +13,8 @@ def main():
 	simonObject = Simon()
 
 	# constants
-	QUBIT_RANGE = 5
-	ITERATIONS = 2
+	QUBIT_RANGE = 4
+	ITERATIONS = 1
 
 
 	worked = np.zeros(shape=(QUBIT_RANGE, ITERATIONS))
@@ -23,16 +23,20 @@ def main():
 	print('Testing out Simon\'s alorithm...')
 
 	seed(3245234)
-	for n in range(1, QUBIT_RANGE+1):
+	for n in range(QUBIT_RANGE, QUBIT_RANGE+1):
 		print(f'Trying {2*n}-qubit machine...')
 		for j in range(ITERATIONS):
 			print(f'Iteration {j+1}...')
 
 			# randomly decide f
-			
+			# for ease of construction, the output for each x,y such that x^y=s is min(x,y)
+			s = randint(0,2**n - 1)
+			print("S: " + "{0:b}".format(s))
+			def f(x):
+				return x if (x^s > x) else x^s
 
 			start = time.perf_counter()
-			result, _ = simonObject.run(f, 2*n)
+			result, _ = simonObject.run(f, n)
 			end = time.perf_counter()
 
 			timing[n][j] = (end - start)
