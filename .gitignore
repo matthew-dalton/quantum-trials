@@ -2,3 +2,4 @@ __pycache__/*
 venv/*
 src/__pycache/*
 src/__pycache__/simon.cpython-37.pyc
+.DS_Store
