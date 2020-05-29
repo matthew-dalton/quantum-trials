@@ -30,13 +30,6 @@ def dj_oracle(case, n):
 	oracle_gate.name = "Oracle" # To show when we display the circuit
 	return oracle_gate
 
-	# Case in which oracle is constant
-	if case == "constant":
-		# First decide what the fixed output of the oracle will be
-		# (either always 0 or always 1)
-		output = np.random.randint(2)
-		if output == 1:
-			oracle_qc.x(n)
 	
 	oracle_gate = oracle_qc.to_gate()
 	oracle_gate.name = "Oracle" # To show when we display the circuit

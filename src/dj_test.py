@@ -15,7 +15,7 @@ def main():
 	djObject = DeutschJozsa()
 
 	# constants
-	QUBIT_RANGE = 30
+	QUBIT_RANGE = 65
 	ITERATIONS = 10
 
 
