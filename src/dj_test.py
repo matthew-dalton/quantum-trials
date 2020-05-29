@@ -15,8 +15,8 @@ def main():
 	djObject = DeutschJozsa()
 
 	# constants
-	QUBIT_RANGE = 3
-	ITERATIONS = 3
+	QUBIT_RANGE = 30
+	ITERATIONS = 10
 
 
 	worked = np.zeros(shape=(QUBIT_RANGE, ITERATIONS))

@@ -65,7 +65,6 @@ class Grover(object):
 
 		# make oracle gate Z_f
 		oracle = Operator(self.getOracle(f,n_qubits))
-		print(oracle)
 		# make helper gate Z_0
 		helper = Operator(self.getHelper(n_qubits))
 
@@ -95,7 +94,6 @@ class Grover(object):
 			p.append(flipper, range(n_qubits))
 
 		p.measure(range(0,n_qubits),range(0,n_qubits))
-		print(p)
 		return p
 
 
@@ -105,5 +103,4 @@ class Grover(object):
 		# print(to_latex(p))
 		job = execute(p, backend)
 		result = job.result().get_counts()
-		print(result)
 		return result

@@ -28,6 +28,7 @@ class BernsteinVazirani(object):
 		circ = self.get_circuit(U_f,n)
 		result = self.execute(circ, backend)
 		print(result)
+		return result
 
 
 	def get_circuit(self, U_f, n_qubits):

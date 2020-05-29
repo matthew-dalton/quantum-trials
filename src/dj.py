@@ -26,7 +26,6 @@ def dj_oracle(case, n):
 		output = np.random.randint(2)
 		if output == 1:
 			oracle_qc.x(n)
-	print(oracle_qc)
 	oracle_gate = oracle_qc.to_gate()
 	oracle_gate.name = "Oracle" # To show when we display the circuit
 	return oracle_gate
@@ -92,10 +91,8 @@ class DeutschJozsa(object):
 		np.set_printoptions(threshold=sys.maxsize)
 		backend = Aer.get_backend('qasm_simulator')
 		circ = self.get_circuit(U_f,n)
-		print('got circuit', circ)
 		result = self.execute(circ, backend)
-		print(result)
-
+		return result
 
 
 

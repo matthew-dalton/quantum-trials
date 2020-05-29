@@ -12,7 +12,7 @@ def main():
 	groverObject = Grover()
 
 	# constants
-	QUBIT_RANGE = 2
+	QUBIT_RANGE = 9
 	ITERATIONS = 1
 
 
