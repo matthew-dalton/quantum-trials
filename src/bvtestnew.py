@@ -1,4 +1,4 @@
-from bv import BernsteinVazirani
+from bvnew import BernsteinVazirani
 
 import time
 import sys

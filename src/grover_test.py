@@ -12,7 +12,7 @@ def main():
 	groverObject = Grover()
 
 	# constants
-	QUBIT_RANGE = 9
+	QUBIT_RANGE = 4
 	ITERATIONS = 1
 
 
@@ -37,6 +37,7 @@ def main():
 
 			start = time.perf_counter()
 			result = groverObject.run(f, n+2)
+			print(result)
 			end = time.perf_counter()
 
 			worked[n][j] = (result == target)
@@ -49,7 +50,7 @@ def main():
 	average_runtimes = []
 	for i in range(QUBIT_RANGE):
 		average_runtimes += [np.mean(timing[i])]
-
+	print(worked)
 	plt.plot(qubit_values, average_runtimes)
 	plt.ylabel('Runtime (s)')
 	plt.xlabel('Number of Qubits')

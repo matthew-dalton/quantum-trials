@@ -1,0 +1,11 @@
+(note:does not include ancillia)
+BV:
+3: 4s
+ 4 qubits: 4.3s, 10% error
+ 5 qubits: 4s, ~40% error
+DJ: 
+4 qubits: 4.8s
+5 qubits: 4.2s
+
+
+

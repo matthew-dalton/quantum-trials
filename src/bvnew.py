@@ -1,9 +1,10 @@
 import inspect 
 import numpy as np
 from qiskit.quantum_info.operators import Operator
-from qiskit import Aer, QuantumCircuit, execute
+from qiskit import Aer, QuantumCircuit, execute, assemble, transpile, IBMQ, QuantumCircuit
 import matplotlib.pyplot as plt
 import sys
+
 
 def bv_oracle(s, n):
 	oracle_qc = QuantumCircuit(n)
@@ -24,10 +25,20 @@ class BernsteinVazirani(object):
 
 	def run(self, U_f, n):
 		# execute circuit on smallest possible qc available
-		backend = Aer.get_backend('qasm_simulator')
-		circ = self.get_circuit(U_f,n)
-		result = self.execute(circ, backend)
-		return result
+		num_shots = 10
+		provider = IBMQ.save_account('2e03c3d444ae65d8dc03d7d18b980161ff9127001b55b2bdc6bc8d1f951bee53309b23628e6fac4984b5dfadb4dadf8add910a424973f9fde6ffd0fa4132b053')
+		provider = IBMQ.load_account()
+		backend = provider.backends.ibmq_16_melbourne
+		circuit = self.get_circuit(U_f,n)
+		qobj = assemble(transpile(circuit, backend), backend, shots = num_shots)
+		job = backend.run(qobj)
+		result = job.result()
+		counts = result.get_counts()
+		print(job.job_id())
+		print(counts)
+		delayed_results = backend.retrieve_job(job.job_id()).result()
+		delayed_counts = delayed_results.get_counts()
+		print(delayed_counts)
 
 
 	def get_circuit(self, U_f, n_qubits):
@@ -54,8 +65,3 @@ class BernsteinVazirani(object):
 
 		return circ
 
-
-	def execute(self, circ, backend):
-		job = execute(circ, backend)
-		result = job.result().get_counts()
-		return result

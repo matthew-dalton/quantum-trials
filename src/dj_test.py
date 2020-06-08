@@ -59,7 +59,11 @@ def main():
 	plt.plot(qubit_values, average_runtimes)
 	plt.ylabel('Runtime (s)')
 	plt.xlabel('Number of Qubits')
-	plt.xticks(qubit_values)
+	ticks = []
+	for i in range((QUBIT_RANGE+1) // 5):
+		ticks.append(i*5)
+
+	plt.xticks(ticks)
 	plt.title('Quantum Simulation Scaling for Deutsch-Jozsa Algorithm')
 	plt.show()
 
