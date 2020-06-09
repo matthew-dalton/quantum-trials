@@ -58,7 +58,6 @@ class Grover(object):
 	def run(self, f, n):
 		# execute circuit on smallest possible qc available
 		num_shots = 10
-		provider = IBMQ.save_account('2e03c3d444ae65d8dc03d7d18b980161ff9127001b55b2bdc6bc8d1f951bee53309b23628e6fac4984b5dfadb4dadf8add910a424973f9fde6ffd0fa4132b053')
 		provider = IBMQ.load_account()
 		backend = provider.backends.ibmq_16_melbourne
 		circuit = self.get_circuit(f,n)

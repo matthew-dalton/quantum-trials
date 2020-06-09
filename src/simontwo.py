@@ -38,7 +38,6 @@ class Simon(object):
 		
 		# execute circuit on smallest possible qc available
 		# print(circuit_drawer(self.get_circuit(f,n)))
-		provider = IBMQ.save_account('2e03c3d444ae65d8dc03d7d18b980161ff9127001b55b2bdc6bc8d1f951bee53309b23628e6fac4984b5dfadb4dadf8add910a424973f9fde6ffd0fa4132b053')
 		provider = IBMQ.load_account()
 		backend = provider.backends.ibmq_16_melbourne
 		return self.execute(self.get_circuit(f, n), backend, f, n)
