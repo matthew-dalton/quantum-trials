@@ -61,6 +61,8 @@ class Simon(object):
 			dest.append(i)
 
 		circuit.measure(source, dest)
+
+		print(circuit_drawer(circuit))
 		
 		return circuit
 
@@ -75,9 +77,10 @@ class Simon(object):
 			print('Circuit Trial: ' + str(i))
 			i += 1
 			
-			qobj = assemble(transpile(circuit, backend, optimization_level=3), backend, shots = n-1)
+			qobj = assemble(transpile(circuit, backend), backend, shots = n-1)
 			job = backend.run(qobj)
 			delayed_results = backend.retrieve_job(job.job_id()).result()
+			print(delayed_results)
 			counts = delayed_results.get_counts()
 			if len(counts) == (n-1):
 				m = []

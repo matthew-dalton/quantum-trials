@@ -13,7 +13,7 @@ def main():
 	simonObject = Simon()
 
 	# constants
-	n = 1
+	n = 3
 
 	# randomly decide f
 	# for ease of construction, the output for each x,y such that x^y=s is min(x,y)
